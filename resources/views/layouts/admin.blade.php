@@ -13,6 +13,9 @@
   <link rel="stylesheet" href="{{asset('backend')}}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('backend')}}/dist/css/adminlte.min.css">
+  <link rel="stylesheet" type="text/css" href="{{asset('backend')}}/plugins/toastr/toastr.css">
+  <link rel="stylesheet" type="text/css" href="{{asset('backend')}}/plugins/sweetalert2/sweetalert2.css">
+
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 
@@ -63,5 +66,9 @@
 <script src="{{asset('backend')}}/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('backend')}}/dist/js/pages/dashboard2.js"></script>
+
+<script type="text/javascript" src="{{ asset('backend/plugins/toastr/toastr.min.js') }}"></script>
+<script src="{{ asset('backend/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+
 </body>
 </html>
