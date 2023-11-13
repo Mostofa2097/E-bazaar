@@ -69,6 +69,44 @@
 
 <script type="text/javascript" src="{{ asset('backend/plugins/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<script>
+  $(document).on("click", "#delete", function(e){
+  e.preventDefault();
+  var link = $(this).attr("href");
+  swal({
+  })
+  title: "Are you Want to delete?",
+  text: "Once Delete, This will be Permanently Delete!",
+  icon: "warning",
+  buttons: true,
+  dangerMode: true,
+  .then((willDelete) => {
+  if (willDelete) {
+  window.location.href = link;
+  } else {
+  swal("Safe Data!");
+  }
+  });
+  });
+  </script>
+  <script>
+  @if(Session::has('messege'))
+  var type="{{Session::get('alert-type', 'info')}}"
+  switch(type){
+  case 'info':
+  toastr.info("{{ Session::get('messege') }}"); break;
+  case 'success':
+  toastr.success("{{ Session::get('messege') }}");
+  break;
+  case 'warning':
+  toastr.warning("{{ Session::get('messege') }}");
+  break;
+  case 'error':
+  toastr.error("{{ Session::get('messege') }}");
+  break;
+  }
+  @endif
+  </script>
 
 </body>
 </html>
