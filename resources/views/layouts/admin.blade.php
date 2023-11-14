@@ -69,26 +69,51 @@
 
 <script type="text/javascript" src="{{ asset('backend/plugins/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   $(document).on("click", "#delete", function(e){
-  e.preventDefault();
-  var link = $(this).attr("href");
-  swal({
-  })
-  title: "Are you Want to delete?",
-  text: "Once Delete, This will be Permanently Delete!",
-  icon: "warning",
-  buttons: true,
-  dangerMode: true,
-  .then((willDelete) => {
-  if (willDelete) {
-  window.location.href = link;
-  } else {
-  swal("Safe Data!");
-  }
-  });
-  });
+      e.preventDefault();
+        var link = $(this).attr("href");
+       swal({
+          title: "Are you Want to delete?",
+          text: "Once Delete, This will be Permanently Delete!",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+       .then((willDelete) => {
+         if (willDelete) {
+            window.location.href = link;
+         } else {
+            swal("Safe Data!");
+         }
+       });
+     });
   </script>
+
+<script>
+  $(document).on("click", "#logout", function(e){
+      e.preventDefault();
+        var link = $(this).attr("href");
+        Swal.fire({
+             title: 'Are you Want to logut!',
+             text: '',
+             icon: 'warning',
+             confirmButtonText: 'Yes'
+             buttons: true,
+          dangerMode: true,
+            })
+       .then((willDelete) => {
+         if (willDelete) {
+            window.location.href = link;
+         } else {
+            swal("not logout");
+         }
+       });
+     });
+  </script>
+
+
   <script>
   @if(Session::has('messege'))
   var type="{{Session::get('alert-type', 'info')}}"
