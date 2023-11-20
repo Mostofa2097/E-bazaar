@@ -18,6 +18,7 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin' , 'middleware'=> 'is_adm
     Route::group(['prefix'=> 'category'], function(){
         Route::get('/','CategoryController@index')->name('category.index');
         Route::post('/store','CategoryController@store')->name('category.store');
+        Route::get('/delete/{id}','CategoryController@destroy')->name('category.delete');
 
     });
 });

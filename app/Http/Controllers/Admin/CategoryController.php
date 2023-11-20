@@ -26,12 +26,26 @@ class CategoryController extends Controller
             'category_name' => 'required|unique:categories|max:55',
         ]);
 
-        $data = array();
-        $data['category_name'] = $request->category_name;
-        $data['category_slug'] = Str::slug($request->category_name, '-');
-         DB::table('categories')->insert($data);
+        //query builder
+        // $data = array();
+        // $data['category_name'] = $request->category_name;
+        // $data['category_slug'] = Str::slug($request->category_name, '-');
+        //  DB::table('categories')->insert($data);
 
+         //Eloquent orm
+         Category::insert([
+            'category_name'=> $request->category_name,
+            'category_slug'=> Str::slug($request->category_name, '-')
+         ]);
          $notification = array('messege'=> 'insert successfully!', 'alert-type'=> 'success');
+        return redirect()->back()->with($notification);
+    }
+
+    public function destroy($id){
+         DB::table('categories')->where('id',$id)->delete();
+        // $category = Category::find($id);
+        // $category->delete();
+        $notification = array('messege'=> 'category delete', 'alert-type'=> 'success');
         return redirect()->back()->with($notification);
     }
 }

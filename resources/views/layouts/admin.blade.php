@@ -88,26 +88,33 @@
 <script type="text/javascript" src="{{ asset('backend/plugins/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('backend/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
 <script>
   $(document).on("click", "#delete", function(e){
       e.preventDefault();
         var link = $(this).attr("href");
-       swal({
-          title: "Are you Want to delete?",
-          text: "Once Delete, This will be Permanently Delete!",
-          icon: "warning",
-          buttons: true,
-          dangerMode: true,
-        })
+        Swal.fire({
+             title: 'Are you Want to delete!',
+             text: '',
+             icon: 'warning',
+             showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+             
+            })
        .then((willDelete) => {
          if (willDelete) {
             window.location.href = link;
          } else {
-            swal("Safe Data!");
+            swal("not logout");
          }
        });
      });
   </script>
+
+  
 
 <script>
   $(document).on("click", "#logout", function(e){
@@ -117,9 +124,11 @@
              title: 'Are you Want to logut!',
              text: '',
              icon: 'warning',
-             confirmButtonText: 'Yes'
-             buttons: true,
-          dangerMode: true,
+             showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "logout!"
+             
             })
        .then((willDelete) => {
          if (willDelete) {
