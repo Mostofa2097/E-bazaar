@@ -48,4 +48,8 @@ class CategoryController extends Controller
         $notification = array('messege'=> 'category delete', 'alert-type'=> 'success');
         return redirect()->back()->with($notification);
     }
+    public function edit($id){
+        $data = DB::table('categories')->where('id',$id)->first();
+        return response()->jason($data);
+    }
 }
