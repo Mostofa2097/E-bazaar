@@ -49,7 +49,8 @@ class CategoryController extends Controller
         return redirect()->back()->with($notification);
     }
     public function edit($id){
-        $data = DB::table('categories')->where('id',$id)->first();
+        // $data = DB::table('categories')->where('id',$id)->first();
+        $data = Category::findorfail($id);
         return response()->jason($data);
     }
 }
