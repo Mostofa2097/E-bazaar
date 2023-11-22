@@ -47,7 +47,7 @@
                             <td>{{$row->category_name}}</td>
                             <td>{{$row->category_slug}}</td>
                             <td>
-                              <a href="#" class="btn btn-info btn-sm edit" data-id="{{$row->id}}" data-toggle="modal"  data-target="#editModal"><i class="fa fa-edit"></i></a>
+                              <a href="{{route('category.edit', $row->id)}}" class="btn btn-info btn-sm edit" data-id="{{$row->id}}" data-toggle="modal"  data-target="#editModal"><i class="fa fa-edit"></i></a>
                               <a href="{{route('category.delete', $row->id)}}" class="btn btn-danger btn-sm" id="delete"><i class="fa fa-trash"></i></a>
                             </td>
                             
