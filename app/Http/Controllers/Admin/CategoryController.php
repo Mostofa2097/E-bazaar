@@ -48,9 +48,30 @@ class CategoryController extends Controller
         $notification = array('messege'=> 'category delete', 'alert-type'=> 'success');
         return redirect()->back()->with($notification);
     }
-    public function edit($id){
-        // $data = DB::table('categories')->where('id',$id)->first();
-        $data = Category::findorfail($id);
-        return response()->jason($data);
+    public function edit($id)
+    {
+        //$data = DB::table('categories')->where('id',$id)->first();
+        $data = Category::find($id);
+        return view('admin.category.category.index', compact('data'));
+    }
+
+    public function update( Request $request){
+        $validated = $request->validate([
+            'category_name' => 'required|unique:categories|max:55',
+        ]);
+
+        //query builder
+        // $data = array();
+        // $data['category_name'] = $request->category_name;
+        // $data['category_slug'] = Str::slug($request->category_name, '-');
+        //  DB::table('categories')->insert($data);
+
+         //Eloquent orm
+         Category::insert([
+            'category_name'=> $request->category_name,
+            'category_slug'=> Str::slug($request->category_name, '-')
+         ]);
+         $notification = array('messege'=> 'insert successfully!', 'alert-type'=> 'success');
+        return redirect()->back()->with($notification);
     }
 }

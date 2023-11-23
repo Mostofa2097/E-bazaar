@@ -101,7 +101,7 @@
         <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form method="Post" action="{{route('category.store')}}">
+      <form method="Post" action="{{route('category.update',$data->id)}}">
         @csrf
         <div class="modal-body">
           <div class="mb-3">
