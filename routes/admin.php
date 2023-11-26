@@ -28,8 +28,8 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin' , 'middleware'=> 'is_adm
 
     Route::group(['prefix'=> 'subcategory'], function(){
         Route::get('/','SubcategoryController@index')->name('subcategory.index');
-        // Route::post('/store','CategoryController@store')->name('category.store');
-        // Route::get('/delete/{id}','CategoryController@destroy')->name('category.delete');
+         Route::post('/store','SubcategoryController@store')->name('subcategory.store');
+         Route::get('/delete/{id}','SubcategoryController@destroy')->name('subcategory.delete');
         // Route::get('/edit/{id}','CategoryController@edit')->name('category.edit');
         // Route::post('/update','CategoryController@update')->name('category.update');
         // //Route::get('/edit/{id}','CategoryController@edit');
