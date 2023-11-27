@@ -48,30 +48,42 @@ class CategoryController extends Controller
         $notification = array('messege'=> 'category delete', 'alert-type'=> 'success');
         return redirect()->back()->with($notification);
     }
+   
+    
     public function edit($id)
     {
         //$data = DB::table('categories')->where('id',$id)->first();
         $data = Category::find($id);
-        return view('admin.category.category.index', compact('data'));
+        return view('admin.category.category.edit', compact('data'));
     }
 
-    public function update( Request $request){
-        $validated = $request->validate([
-            'category_name' => 'required|unique:categories|max:55',
-        ]);
+    // public function update( Request $request){
+       
 
-        //query builder
-        // $data = array();
-        // $data['category_name'] = $request->category_name;
-        // $data['category_slug'] = Str::slug($request->category_name, '-');
-        //  DB::table('categories')->insert($data);
+    //     //query builder
+    //     // $data = array();
+    //     // $data['category_name'] = $request->category_name;
+    //     // $data['category_slug'] = Str::slug($request->category_name, '-');
+    //     //  DB::table('categories')->insert($data);
 
-         //Eloquent orm
-         Category::insert([
+    //      //Eloquent orm
+    //      Category::update([
+    //         'category_name'=> $request->category_name,
+    //         'category_slug'=> Str::slug($request->category_name, '-')
+    //      ]);
+    //      $notification = array('messege'=> 'insert successfully!', 'alert-type'=> 'success');
+    //     return redirect()->back()->with($notification);
+    // }
+
+
+    function update(Request $request, $id)
+    {
+        $category = Category::find($id);
+        $category->update([
             'category_name'=> $request->category_name,
-            'category_slug'=> Str::slug($request->category_name, '-')
-         ]);
-         $notification = array('messege'=> 'insert successfully!', 'alert-type'=> 'success');
-        return redirect()->back()->with($notification);
-    }
+            'category_slug'=> Str::of($request->category_name)->slug('-'),
+        ]);
+        $notification = array('messege'=> 'insert successfully!', 'alert-type'=> 'success');
+        return redirect()->route('category.index')->with($notification);
+   }
 }

@@ -49,7 +49,7 @@
                             <td>{{$row->subcategory_slug}}</td>
                             <td>{{$row->category_name}}</td>
                             <td>
-                              <a href="{{route('category.edit', $row->id)}}" class="btn btn-info btn-sm edit" data-id="{{$row->id}}" data-toggle="modal"  data-target="#editModal"><i class="fa fa-edit"></i></a>
+                              <a href="{{route('subcategory.edit', $row->id)}}" class="btn btn-info btn-sm " id="edit" ><i class="fa fa-edit"></i></a>
                               <a href="{{route('subcategory.delete', $row->id)}}" class="btn btn-danger btn-sm" id="delete"><i class="fa fa-trash"></i></a>
                             </td>
                             
@@ -103,31 +103,7 @@
   </div>
 </div>
 
-<!-- EditModal -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <form method="Post" action="{{route('category.update')}}">
-        @csrf
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="category_name" class="form-label">Category Name</label>
-            <input type="text" class="form-control" id="e_category_name" name="category_name" required>
-            <div id="emailHelp" class="form-text">This is you main category</div>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="Submit" class="btn btn-primary">Submit</button>
-      </div>
-    </form>
-    </div>
-  </div>
-</div>
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" 

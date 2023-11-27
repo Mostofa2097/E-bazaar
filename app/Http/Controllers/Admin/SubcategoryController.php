@@ -56,6 +56,33 @@ class SubcategoryController extends Controller
        }
 
 
+       public function edit($id){
+
+        $data = Subcategory::find($id);
+        $category = Category::all();
+        return view('admin.category.subcategory.edit',compact('data','category'));
+
+       }
+
+       function update(Request $request, $id){
+        $subcategory = Subcategory::find($id);
+        $subcategory->update([
+            'subcategory_name' => $request->subcategory_name,
+            'subcategory_slug' => Str::of($request->subcategory_name)->slug('-'),
+        ]);
+
+        // $subcategory = Subcategory::find($id);
+
+        // $subcategory->category_id =  $request->category_id;
+        // $subcategory->subcategory_name =  $request->subcategory_name;
+        // $subcategory->subcategory_slug = Str::of($request->subcategory_name)->slug('-');
+        // $subcategory->save();
+
+        return redirect()->route('subcategory.index');
+        
+     }
+
+
 
 
 
