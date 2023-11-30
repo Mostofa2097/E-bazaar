@@ -36,4 +36,15 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin' , 'middleware'=> 'is_adm
 
     });
 
+
+    Route::group(['prefix'=> 'childcategory'], function(){
+        Route::get('/','ChildcategoryController@index')->name('childcategory.index');
+        //  Route::post('/store','SubcategoryController@store')->name('subcategory.store');
+        //  Route::get('/delete/{id}','SubcategoryController@destroy')->name('subcategory.delete');
+        // Route::get('/edit/{id}','SubcategoryController@edit')->name('subcategory.edit');
+        // Route::post('/update/{id}','SubcategoryController@update')->name('subcategory.update');
+        // //Route::get('/edit/{id}','CategoryController@edit');
+
+    });
+
 });

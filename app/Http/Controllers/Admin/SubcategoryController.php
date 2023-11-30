@@ -65,6 +65,7 @@ class SubcategoryController extends Controller
        }
 
        function update(Request $request, $id){
+        
         $subcategory = Subcategory::find($id);
         $subcategory->update([
             'subcategory_name' => $request->subcategory_name,
