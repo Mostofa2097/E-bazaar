@@ -1,111 +1,142 @@
 @extends('layouts.admin')
 
 @section('admin_content')
-<div class="content-wrapper">
+  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h4 class="m-0"> Category</h4>
+            <h1 class="m-0">Child Category</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-
-              <button class="btn btn-primary" data-toggle="modal" data-target="#categoryModal">+ Add Category</button>
+              <button class="btn btn-primary" data-toggle="modal" data-target="#addModal"> + Add New</button>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
-    
-
-    <section class="content">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">All Categories list Hear</h3>
-                </div>
-                <!-- /.card-header -->
-                <div class="card-body">
-
-                    <table id="example2" class="table table-bordered table-hover table-sm">
-                        <thead>
-                        <tr>
-                          <th>SL</th>
-                          <th>Category Name</th>
-                          <th>Category Slug</th>
-                          <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                          @foreach($data as $key=> $row)
-                          <tr>
-                          <td>{{ $key+1 }}</td>
-                          <td>{{ $row->category_name }}</td>
-                          <td>{{ $row->category_slug }}</td>
-                          <td>
-                          <a href="{{ route('category.edit', $row->id) }}" class="btn btn-info btn-sm "  ><i class="fas fa-edit"></i></a>
-                          <a href="{{ route('category.delete', $row->id) }}" class="btn btn-danger btn-sm" id="delete "><i class="fas fa-trash"></i></a>
-                          </td> </tr>
-                          @endforeach
-                        </tbody>
-                      </table>
-                </div>
+    <!-- /.content-header -->
+     <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">All Child-categories list here</h3>
               </div>
-            </div>
-        </div>
-     </div>
-    </section>
+              <!-- /.card-header -->
+                <div class="card-body">
+                  <table id="" class="table table-bordered table-striped table-sm ytable">
+                    <thead>
+                    <tr>
+                      <th>SL</th>
+                      <th>ChildCategory Name</th>
+                      <th>Category Name</th>
+                      <th>SubCategory Name</th>
+                      <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                  
+                    </tbody>
+                  </table>
+                </div>
+	          </div>
+	      </div>
+	  </div>
+	</div>
+</section>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{-- category insert modal --}}
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title" id="exampleModalLabel">Add New Child Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <form method="Post" action="{{route('category.store')}}">
-        @csrf
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="category_name" class="form-label">Category Name</label>
-            <input type="text" class="form-control" id="category_name" name="category_name" required>
-            <div id="emailHelp" class="form-text">This is you main category</div>
+     <form action="{{ route('childcategory.store') }}" method="Post" id="add-form">
+      @csrf
+      <div class="modal-body">
+      	  <div class="form-group">
+            <label for="category_name">Category/Subcategory </label>
+            <select class="form-control" name="subcategory_id" required="">
+            	@foreach($category as $row)
+                  @php 
+                    $subcat=DB::table('subcategories')->where('category_id',$row->id)->get();
+                  @endphp
+                  <option disabled="" style="color: blue;">{{ $row->category_name }}</option>
+                  @foreach($subcat as $row)
+            	        <option value="{{ $row->id }}"> ---- {{ $row->subcategory_name }}</option>
+                  @endforeach    
+            	@endforeach
+            </select>
           </div>
+          <div class="form-group">
+            <label for="category_name">Child Category Name</label>
+            <input type="text" class="form-control"  name="childcategory_name" required="">
+            <small id="emailHelp" class="form-text text-muted">This is your childcategory category</small>
+          </div>   
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="Submit" class="btn btn-primary">Submit</button>
+        <button type="Submit" class="btn btn-primary"> <span class="d-none"> loading..... </span>  Submit</button>
       </div>
-    </form>
+      </form>
     </div>
   </div>
 </div>
 
- 
+{{-- edit modal --}}
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Child Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+     <div id="modal_body">
+     		
+     </div>	
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
-
-
-
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="
-sha512-894YE6QWD5159HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihzOPPSiign/+/3e7J04EaG7TubfWGUrMQ==" crossorigin="
-anonymous"></script>
 <script type="text/javascript">
-$('body').on('click','.edit', function(){
-Let cat_id=$(this).data('id');
-$.get("category/edit/"+cat_id, function(data) {
-$('#e_category_name').val(data.category_name);
-$('#e_category_id').val(data.id);
-});
-});
+	$(function childcategory(){
+		var table=$('.ytable').DataTable({
+			processing:true,
+			serverSide:true,
+			ajax:"{{ route('childcategory.index') }}",
+			columns:[
+				{data:'DT_RowIndex',name:'DT_RowIndex'},
+				{data:'childcategory_name'  ,name:'childcategory_name'},
+				{data:'category_name',name:'category_name'},
+				{data:'subcategory_name',name:'subcategory_name'},
+				{data:'action',name:'action',orderable:true, searchable:true},
+
+			]
+		});
+	});
+
+
+  $('body').on('click','.edit', function(){
+    let id=$(this).data('id');
+    $.get("childcategory/edit/"+id, function(data){
+        $("#modal_body").html(data);
+    });
+  });
+
 </script>
 
 @endsection

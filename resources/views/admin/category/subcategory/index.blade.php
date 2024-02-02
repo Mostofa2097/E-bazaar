@@ -81,6 +81,7 @@
         @csrf
         <div class="modal-body">
           <div class="mb-3">
+            
             <label for="category_name" class="form-label">Category Name</label>
             <select name="category_id" class="form-control">
                 @foreach ($category as $row)
