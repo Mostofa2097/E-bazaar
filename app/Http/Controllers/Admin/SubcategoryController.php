@@ -47,16 +47,18 @@ class SubcategoryController extends Controller
         return redirect()->back()->with($notification);
          }
 
-    public function destroy($id){
+        public function destroy($id)
+        {
             DB::table('subcategories')->where('id',$id)->delete();
            // $category = Category::find($id);
            // $category->delete();
            $notification = array('messege'=> 'category delete', 'alert-type'=> 'success');
            return redirect()->back()->with($notification);
-       }
+         }
 
 
-       public function edit($id){
+       public function edit($id)
+       {
 
         $data = Subcategory::find($id);
         $category = Category::all();
@@ -64,24 +66,28 @@ class SubcategoryController extends Controller
 
        }
 
-       function update(Request $request, $id){
-        
-        $subcategory = Subcategory::find($id);
-        $subcategory->update([
-            'subcategory_name' => $request->subcategory_name,
-            'subcategory_slug' => Str::of($request->subcategory_name)->slug('-'),
-        ]);
+      //update method
+    public function update(Request $request)
+    {
+       //Eloquent ORM
+       $subcategory=Subcategory::where('id',$request->id)->first();
+       $subcategory->update([
+       		'category_id'=> $request->category_id,
+    		'subcategory_name'=> $request->subcategory_name,
+    		'subcat_slug'=> Str::slug($request->subcategory_name, '-')
+       ]);
 
-        // $subcategory = Subcategory::find($id);
+       //QueryBuilder
 
-        // $subcategory->category_id =  $request->category_id;
-        // $subcategory->subcategory_name =  $request->subcategory_name;
-        // $subcategory->subcategory_slug = Str::of($request->subcategory_name)->slug('-');
-        // $subcategory->save();
+    	// $data=array();
+    	// $data['category_id']=$request->category_id;
+    	// $data['subcategory_name']=$request->subcategory_name;
+    	// $data['subcat_slug']=Str::slug($request->subcategory_name, '-');
+    	// DB::table('subcategories')->where('id',$request->id)->update($data);
 
-        return redirect()->route('subcategory.index');
-        
-     }
+       $notification=array('messege' => 'Subategory Updated!', 'alert-type' => 'success');
+    	return redirect()->back()->with($notification);
+    }
 
 
 

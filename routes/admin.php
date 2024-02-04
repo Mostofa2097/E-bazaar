@@ -30,8 +30,8 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin' , 'middleware'=> 'is_adm
         Route::get('/','SubcategoryController@index')->name('subcategory.index');
          Route::post('/store','SubcategoryController@store')->name('subcategory.store');
          Route::get('/delete/{id}','SubcategoryController@destroy')->name('subcategory.delete');
-        Route::get('/edit/{id}','SubcategoryController@edit')->name('subcategory.edit');
-        Route::post('/update/{id}','SubcategoryController@update')->name('subcategory.update');
+         Route::get('/edit/{id}','SubcategoryController@edit');
+         Route::post('/update','SubcategoryController@update')->name('subcategory.update');
         // //Route::get('/edit/{id}','CategoryController@edit');
 
     });
@@ -47,6 +47,15 @@ Route::group(['namespace'=>'App\Http\Controllers\Admin' , 'middleware'=> 'is_adm
 		Route::get('/delete/{id}','ChildcategoryController@destroy')->name('childcategory.delete');
 		Route::get('/edit/{id}','ChildcategoryController@edit');
 		Route::post('/update','ChildcategoryController@update')->name('childcategory.update');
+	});
+
+    //Brand Routes
+	Route::group(['prefix'=>'brand'], function(){
+		Route::get('/','BrandController@index')->name('brand.index');
+		Route::post('/store','BrandController@store')->name('brand.store');
+		Route::get('/delete/{id}','BrandController@destroy')->name('brand.delete');
+		Route::get('/edit/{id}','BrandController@edit');
+		Route::post('/update','BrandController@update')->name('brand.update');
 	});
 
 });

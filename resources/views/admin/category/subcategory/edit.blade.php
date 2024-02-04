@@ -1,44 +1,23 @@
-@extends('layouts.admin')
-
-@section('admin_content')
-
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('update subCategory') }}</div>
-
-                <div class="card-body">
-                    <form method="post" action="{{route('subcategory.update',$data->id)}}">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="category_name" class="form-label">Category Name</label>
-                            <select name="category_id" class="form-control">
-                                @foreach ($category as $row)
-                                    <option value="{{$row->id}}">{{$row->category_name}}</option>
-                                @endforeach
-                            </select>
-                          </div>
-                    
-                          <div class="form-group">
-                            <label for="exampleInputEmail1">subCategory Name</label>
-                            <br>
-                            <input type="text" class="form-control  @error('subcategory_name') is-invalid @enderror"  name="subcategory_name"
-                             value="{{ $data->subcategory_name }}" required 
-                            placeholder="Enter Category Name">
-                            @error('subcategory_name')
-                                      <span class="invalid-feedback" role="alert">
-                                          <strong>{{ $message }}</strong>
-                                      </span>
-                                  @enderror
-                          </div>
-                        <button type="submit" class="btn btn-primary">update</button>
-                      </form>
-                   
-                </div>
-            </div>
-        </div>
+<form action="{{ route('subcategory.update') }}" method="Post">
+    @csrf
+<div class="modal-body">
+     <div class="form-group">
+      <label for="category_name">Category Name</label>
+      <select class="form-control" name="category_id" required="">
+          @foreach($category as $row)
+            <option value="{{ $row->id }}" @if($row->id==$data->category_id) selected="" @endif >{{ $row->category_name }}</option>
+          @endforeach
+      </select>
+      <input type="hidden" name="id" value="{{ $data->id }}">
     </div>
+    <div class="form-group">
+      <label for="category_name">SubCategory Name</label>
+      <input type="text" class="form-control"  name="subcategory_name" value="{{ $data->subcategory_name }}" required="">
+      <small id="emailHelp" class="form-text text-muted">This is your sub category</small>
+    </div>    
 </div>
-
-  @endsection
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+  <button type="Submit" class="btn btn-primary">Update</button>
+</div>
+</form>

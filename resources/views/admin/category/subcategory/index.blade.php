@@ -49,7 +49,7 @@
                             <td>{{$row->subcategory_slug}}</td>
                             <td>{{$row->category_name}}</td>
                             <td>
-                              <a href="{{route('subcategory.edit', $row->id)}}" class="btn btn-info btn-sm " id="edit" ><i class="fa fa-edit"></i></a>
+                              <a href="#" class="btn btn-info btn-sm edit" data-id="{{ $row->id }}" data-toggle="modal" data-target="#editModal" ><i class="fas fa-edit"></i></a>
                               <a href="{{route('subcategory.delete', $row->id)}}" class="btn btn-danger btn-sm" id="delete"><i class="fa fa-trash"></i></a>
                             </td>
                             
@@ -104,23 +104,39 @@
   </div>
 </div>
 
+{{-- edit modal --}}
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Subategory</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+     <div id="modal_body">
+     		
+     </div>	
+    </div>
+  </div>
+</div>
 
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" 
-integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" 
-crossorigin="anonymous" referrerpolicy="no-referrer">
-</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
 
 
 <script type="text/javascript">
-$('body').on('click', '.edit', function(){ 
-  Let cat_id = $(this).data('id'); 
-  $.get("category/edit"+cat_id,function(data){
-    $('#e_categorry_name').val(data.category_name);
-    $('#e_categorry_id').val(data.id);
-  });
-});
+	$('body').on('click','.edit', function(){
+		let subcat_id=$(this).data('id');
+		$.get("subcategory/edit/"+subcat_id, function(data){
+			$("#modal_body").html(data);
+		});
+	});
+
+
+
 </script>
 
 @endsection
